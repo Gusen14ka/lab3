@@ -8,7 +8,7 @@ size_t goldRatioIter(double a, double b, double eps){
     return static_cast<size_t>(std::ceil(std::abs(std::log(2 * eps / (b - a)) / std::log(phi)) ) + 2);
 }
 
-double goldRatio(double a, double b, double eps){
+std::pair<double, double> goldRatio(double a, double b, double eps, double &inter, size_t &calls){
     double x1 = b - phi * (b - a);
     double x2 = a + phi * (b - a);
     double f1 = func(x1);
@@ -33,5 +33,7 @@ double goldRatio(double a, double b, double eps){
     }
     std::cout << "Вызвано раз: " << called << std::endl;
     std::cout << "Теоретически вызвано раз: " << teor_calls << std::endl;
-    return (a + b) / 2;
+    inter = std::abs(b - a);
+    calls = called;
+    return {(a + b) / 2, func((a + b) / 2)};
 }

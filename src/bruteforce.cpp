@@ -8,7 +8,7 @@ size_t bruteforceIter(double a, double b, double eps){
     return static_cast<size_t>(std::ceil((b - a) / eps - 1));
 }
 
-double bruteforce(double a, double b, double eps){
+std::pair<double, double> bruteforce(double a, double b, double eps, double &inter, size_t &calls){
     size_t n = bruteforceIter(a, b, eps);
     double delta = (b - a) / (n + 1);
     double x = a + delta;
@@ -26,6 +26,8 @@ double bruteforce(double a, double b, double eps){
     }
     std::cout << "Вызвано раз: " << called << std::endl;
     std::cout << "Теоретически вызвано раз: " << bruteforceIter(a, b, eps) << std::endl;
-    return x_min;
+    inter = delta;
+    calls = called;
+    return {x_min, f_min};
 
 }
